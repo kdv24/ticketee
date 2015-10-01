@@ -4,6 +4,13 @@ require "rails_helper"
     let(:user) { FactoryGirl.create(:user) }
     let(:admin) { FactoryGirl.create(:user, :admin) }
 
+    context "anonymous users" do
+      scenario "cannot see the New Project link" do
+        visit "/"
+        expect(page).not_to have_link "New Project"
+      end
+    end
+
     context "non-admin users (project_viewers)" do
       before do
         login_as(user)
